@@ -1,19 +1,19 @@
 "use strict";
 
-const commander = require('commander');
 const Process = require('./Process');
 const path = require('path');
+const fs = require('fs');
+const env = require('../env');
 
-commander
-	.option('-c, --config [string]', 'Config')
-	.parse(process.argv);
-
-const config = require(commander.config);
+const config = require(env.configFile);
 
 const processes = [];
 exports.init = function () {
 	config.forEach((item, index) => {
-		item.forever.outFile = path.join(__dirname, '/../logs/' + item.name + '.log');
+		let filePath = path.join(__dirname, '/../logs/' + item.name + '.log');
+		fs.unlinkSync(filePath);
+
+		item.forever.outFile = filePath;
 
 		let proc = new Process(index, item);
 

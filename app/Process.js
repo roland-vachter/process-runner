@@ -22,7 +22,7 @@ const Process = function (id, config) {
 	};
 
 	this.restart = function () {
-		status = 'restarting';
+		status = 'restarted';
 		emitStatusUpdate();
 
 		proc.restart();
@@ -91,10 +91,15 @@ const Process = function (id, config) {
 
 	proc.on('restart', function () {
 		status = 'running';
-		console.log(config.name + ' restarting.');
+		console.log(config.name + ' restarted.');
 
 		emitStatusUpdate();
 	});
+
+
+	if (config.autostart) {
+		self.start();
+	}
 };
 
 module.exports = Process;
