@@ -1,0 +1,16 @@
+{
+  "name": "process-runner",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "^1.2.16",
+    "angular-bootstrap": "^1.0.0",
+    "oclazyload": "^1.0.0",
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "bootstrap": "~3.1.1"
+  },
+  "appPath": "app"
+}

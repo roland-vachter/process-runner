@@ -1,0 +1,35 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-success" ng-click="startAll()">Start all</button>
+            <button type="button" class="btn btn-warning" ng-click="restartAll()">Restart all</button>
+            <button type="button" class="btn btn-danger" ng-click="stopAll()">Stop all</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th ng-repeat="col in cols">{{col}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, value) in processes" class="{{value.color}}">
+                        <td>{{key}}</td>
+                        <td>{{value.name}}</td>
+                        <td style="text-transform: capitalize;">{{value.status}}</td>
+                        <td>
+                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': value.status === 'stopped'}" ng-disabled="value.status !== 'stopped'" ng-click="start(key)">Start</button>
+                            <button type="button" class="btn btn-xs" ng-class="{'btn-warning': value.status !== 'stopped'}" ng-disabled="value.status === 'stopped'" ng-click="restart(key)">Restart</button>
+                            <button type="button" class="btn btn-xs" ng-class="{'btn-danger': value.status === 'running'}" ng-disabled="value.status !== 'running'" ng-click="stop(key)">Stop</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="getLogs(key)">Open logs</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
