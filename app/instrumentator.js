@@ -8,11 +8,12 @@ const env = require('../env');
 const config = require(env.configFile);
 
 const processes = [];
-exports.init = function () {
+exports.init = function() {
 	config.forEach((item, index) => {
 		let filePath = path.join(__dirname, '/../logs/' + item.name + '.log');
 
-		if (fs.existsSync(filePath)) {
+		let stats = fs.lstatSync(filePath);
+		if (stats && stats.isFile()) {
 			fs.unlinkSync(filePath);
 		}
 
@@ -25,7 +26,7 @@ exports.init = function () {
 };
 
 
-exports.start = function (id) {
+exports.start = function(id) {
 	if (id < processes.length) {
 		processes[id].start();
 
@@ -35,7 +36,7 @@ exports.start = function (id) {
 	}
 };
 
-exports.restart = function (id) {
+exports.restart = function(id) {
 	if (id < processes.length) {
 		processes[id].restart();
 
@@ -45,7 +46,7 @@ exports.restart = function (id) {
 	}
 };
 
-exports.stop = function (id) {
+exports.stop = function(id) {
 	if (id < processes.length) {
 		processes[id].stop();
 
@@ -55,7 +56,7 @@ exports.stop = function (id) {
 	}
 };
 
-exports.getLogs = function (id) {
+exports.getLogs = function(id) {
 	if (id < processes.length) {
 		return processes[id].getLogs().catch((err) => {
 			throw {
@@ -75,7 +76,7 @@ exports.getLogs = function (id) {
 
 
 
-exports.startAll = function () {
+exports.startAll = function() {
 	processes.forEach((proc) => {
 		proc.start();
 	});
@@ -83,7 +84,7 @@ exports.startAll = function () {
 	return true;
 };
 
-exports.restartAll = function () {
+exports.restartAll = function() {
 	processes.forEach((proc) => {
 		proc.restart();
 	});
@@ -91,7 +92,7 @@ exports.restartAll = function () {
 	return true;
 };
 
-exports.stopAll = function () {
+exports.stopAll = function() {
 	processes.forEach((proc) => {
 		proc.stop();
 	});
@@ -99,7 +100,7 @@ exports.stopAll = function () {
 	return true;
 };
 
-exports.getStatus = function () {
+exports.getStatus = function() {
 	var status = [];
 
 	processes.forEach((proc) => {
@@ -114,7 +115,7 @@ exports.getStatus = function () {
 
 
 
-function onExit () {
+function onExit() {
 	exports.stopAll();
 
 	console.log('all stopped');
@@ -122,7 +123,7 @@ function onExit () {
 
 process.on('exit', onExit);
 process.on('SIGINT', onExit);
-process.on('uncaughtException', function (exception) {
+process.on('uncaughtException', function(exception) {
 	console.log("uncaughtException", exception);
 
 	onExit();
