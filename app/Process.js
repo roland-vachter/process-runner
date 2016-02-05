@@ -45,7 +45,7 @@ const Process = function(id, config) {
 		});
 	}
 
-	if (config.github && config.github.repo) {
+	if (config.github) {
 		git = simpleGit(config.directory);
 
 		config.github.remote = config.github.remote || 'origin';
