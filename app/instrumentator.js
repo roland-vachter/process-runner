@@ -114,18 +114,18 @@ exports.getStatus = function() {
 };
 
 
-function killAll = function () {
+function killAll () {
 	processes.forEach((proc) => {
 		proc.kill();
 	});
 
 	return true;
-};
+}
 
 
 
 function onExit() {
-	exports.killAll();
+	killAll();
 
 	console.log('all killed');
 }
