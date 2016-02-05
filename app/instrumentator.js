@@ -12,10 +12,8 @@ exports.init = function () {
 	config.forEach((item, index) => {
 		let filePath = path.join(__dirname, '/../logs/' + item.name + '.log');
 
-		try {
+		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
-		} catch (e) {
-			console.log('log file does not exist, continue');
 		}
 
 		item.outFile = filePath;
