@@ -124,4 +124,8 @@ function onExit () {
 
 process.on('exit', onExit);
 process.on('SIGINT', onExit);
-process.on('uncaughtException', onExit);
+process.on('uncaughtException', function (exception) {
+	console.log("uncaughtException", exception);
+
+	onExit();
+});
