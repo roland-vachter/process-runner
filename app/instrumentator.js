@@ -12,16 +12,16 @@ exports.init = function() {
 	config.forEach((item, index) => {
 		let filePath = path.join(__dirname, '/../logs/' + item.name + '.log');
 
-		let stats = fs.lstatSync(filePath);
-		if (stats && stats.isFile()) {
-			fs.unlinkSync(filePath);
-		}
+		fs.lstat(filePath, (err, stats) => {
+			if (!err && stats && stats.isFile()) {
+				fs.unlinkSync(filePath);
+			}
 
-		item.outFile = filePath;
+			item.outFile = filePath;
 
-		let proc = new Process(index, item);
-
-		processes.push(proc);
+			let proc = new Process(index, item);
+			processes[index] = proc;
+		});
 	});
 };
 
