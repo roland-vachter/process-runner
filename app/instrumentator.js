@@ -11,9 +11,14 @@ const processes = [];
 exports.init = function () {
 	config.forEach((item, index) => {
 		let filePath = path.join(__dirname, '/../logs/' + item.name + '.log');
-		fs.unlinkSync(filePath);
 
-		item.forever.outFile = filePath;
+		try {
+			fs.unlinkSync(filePath);
+		} catch (e) {
+			console.log('log file does not exist, continue');
+		}
+
+		item.outFile = filePath;
 
 		let proc = new Process(index, item);
 
@@ -108,3 +113,15 @@ exports.getStatus = function () {
 
 	return status;
 };
+
+
+
+function onExit () {
+	exports.stopAll();
+
+	console.log('all stopped');
+}
+
+process.on('exit', onExit);
+process.on('SIGINT', onExit);
+process.on('uncaughtException', onExit);

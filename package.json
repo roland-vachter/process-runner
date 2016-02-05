@@ -13,7 +13,11 @@
     "express": "~4.13.1",
     "forever-monitor": "^1.7.0",
     "hjs": "~0.0.6",
+    "lodash": "^4.2.1",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "npmi": "^1.0.1",
+    "serve-favicon": "~2.3.0",
+    "simple-git": "^1.22.0",
+    "watch": "^0.17.1"
   }
 }
