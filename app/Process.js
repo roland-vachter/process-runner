@@ -17,7 +17,7 @@ const Process = function(id, config) {
 		killTree: true,
 		minUptime: 2000,
 		spinSleepTime: 1000,
-		silent: true,
+		silent: false,
 		sourceDir: config.directory,
 		watch: false,
 		env: config.env,
@@ -125,11 +125,6 @@ const Process = function(id, config) {
 		emitStatusUpdate();
 
 		proc.restart();
-	};
-
-	this.kill = function () {
-		self.stop();
-		proc.kill();
 	};
 
 
