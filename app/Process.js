@@ -115,9 +115,7 @@ const Process = function(id, config) {
 	};
 
 	this.stop = function() {
-		if (status === 'running' || status === 'error') {
-			proc.stop();
-		}
+		proc.stop();
 	};
 
 	this.restart = function() {
@@ -125,6 +123,10 @@ const Process = function(id, config) {
 		emitStatusUpdate();
 
 		proc.restart();
+	};
+
+	this.kill = function () {
+		proc.kill();
 	};
 
 
